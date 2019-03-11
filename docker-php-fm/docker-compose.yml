@@ -1,0 +1,15 @@
+version: '3'
+services:
+  app:
+    image: php:7.3.2-fpm
+    volumes:
+      - ./:/var/www
+  server:
+    image: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./:/var/www
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+    depends_on: 
+      - app
