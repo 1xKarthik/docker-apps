@@ -1,0 +1,36 @@
+version: '2'
+
+services:
+  db:
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Karthik@123
+      MYSQL_DATABASE: srautakalpah
+      MYSQL_USER: karthik
+      MYSQL_PASSWORD: Karthik@123
+
+  wordpress:
+    depends_on:
+      - db
+    image: wordpress:latest
+    ports:
+      - "8080:80"
+    restart: always
+    volumes: 
+      - wp-content:/wp-content
+      - .htaccess:.htaccess
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: karthik
+      WORDPRESS_DB_PASSWORD: Karthik@123
+      WORDPRESS_DB_NAME: srautakalpah
+      WORDPRESS_CONFIG_EXTRA: |
+        define('WP_MEMORY_LIMIT', '256MB');
+        define('WP_UPLOAD_MAX_FILESIZE', '500MB');
+        define('WP_POST_MAX_SIZE', '500MB');
+volumes:
+    db_data: {}
+    wp-content: {}

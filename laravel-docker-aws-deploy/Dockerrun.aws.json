@@ -1,0 +1,26 @@
+{
+    "AWSEBDockerrunVersion": "2",
+    "containerDefinitions": [
+        {
+            "name": "app",
+            "image": "karthikgirraj/laravel-app",
+            "hostname": "app",
+            "essential": false,
+            "memory": 128
+        },
+        {
+            "name": "server",
+            "image": "karthikgirraj/laravel-server",
+            "hostname": "server",
+            "essential": true,
+            "memory": 128,
+            "portMappings": [
+                {
+                    "hostPort": 80,
+                    "containerPort": 80
+                }
+            ],
+            "links": ["app"]
+        }
+    ]
+}
